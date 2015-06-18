@@ -5,16 +5,25 @@
     <title>Angular testing</title>
     <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="css/app.css" />
-    <script type="text/javascript" src="bower_components/angularjs/angular.min.js" ></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular/angular.min.js" ></script>
     <script type="text/javascript" src="js/app.js" ></script>
+
+
+    <link rel="stylesheet" href="bower_components/perfect-scrollbar/min/perfect-scrollbar.min.css" />
+    <script src="bower_components/perfect-scrollbar/min/perfect-scrollbar.min.js"></script>
+    <script src="bower_components/perfect-scrollbar/min/perfect-scrollbar.with-mousewheel.min.js"></script>
+    <script src="bower_components/angular-perfect-scrollbar/src/angular-perfect-scrollbar.js"></script>
 </head>
 <body>
 	<div class="container" ng-controller="rows-controller">
-		<div class="row" ng-repeat="row in rows">
-			<p class="text-center" ng-class="{'text-danger': row.friend}">
-				Row {{row.name}}, steamid {{row.steamid}}
-			</p>
-		</div>
+        <perfect-scrollbar class="scroller" wheel-propagation="true" wheel-speed="20" refresh-on-change="rows">
+    		<div class="row" ng-repeat="row in rows">
+    			<p class="text-center" ng-class="{'text-danger': row.friend}">
+    				Row {{row.name}}, steamid {{row.steamid}}
+    			</p>
+    		</div>
+        </perfect-scrollbar>
 	</div>
 	<div class="container" ng-controller="player-count">
     	<div class="col-md-6">EU: {{ playerCounts.eu }}</div>

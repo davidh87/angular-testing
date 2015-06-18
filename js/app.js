@@ -1,4 +1,4 @@
-angular.module('testing-app', [])
+angular.module('testing-app', ['perfect_scrollbar'])
 
 .service('PlayersOnline', ['$interval', '$http', function($interval, $http) {
     var players = {};

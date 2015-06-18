@@ -1,3 +1,29 @@
 div {
     border: 1px solid black;
 }
+
+.scroller {
+    white-space: pre-line;
+    height: 500px;
+    width: 500px;
+    overflow-y: hidden;
+    position: relative;
+}
+
+.row {
+    width: 480px;
+}
+
+.container .ps-container>.ps-scrollbar-y-rail {
+    opacity: .6;
+    background-color: #cccccc;
+}
+
+.container .ps-container>.ps-scrollbar-y-rail>.ps-scrollbar-y {
+    min-height: 20px;
+    background-color: green;
+}
+
+.container .ps-container:hover>.ps-scrollbar-y-rail:hover>.ps-scrollbar-y {
+  background-color: red;
+}
