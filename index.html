@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="testing-app">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Angular testing</title>
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    <script type="text/javascript" src="bower_components/angularjs/angular.min.js" ></script>
+    <script type="text/javascript" src="js/app.js" ></script>
+</head>
+<body>
+	<div class="container" ng-controller="rows-controller">
+		<div class="row" ng-repeat="row in rows">
+			<p class="text-center" ng-class="{'text-danger': row.friend}">
+				Row {{row.name}}, steamid {{row.steamid}}
+			</p>
+		</div>
+	</div>
+	<div class="container" ng-controller="player-count">
+    	<div class="col-md-6">EU: {{ playerCounts.eu }}</div>
+    	<div class="col-md-6">US: {{ playerCounts.us }}</div>
+	</div>
+</body>
+</html>
