@@ -1,6 +1,6 @@
 angular.module('testing-app', ['perfect_scrollbar'])
 
-.service('PlayersOnline', ['$interval', '$http', function($interval, $http) {
+.service('PlayersOnline', ['$interval', '$http', '$rootScope', function($interval, $http, $rootScope) {
     var players = {};
 
     var regionCount = {
@@ -28,11 +28,11 @@ angular.module('testing-app', ['perfect_scrollbar'])
         );
     };
 
-    $interval(function() {
-        updatePlayers();
-    }, 10000);
+    // $interval(function() {
+    //     updatePlayers();
+    // }, 10000);
 
-    updatePlayers();
+    // updatePlayers();
 
     var getPlayers = function() {
         return players;
@@ -42,14 +42,33 @@ angular.module('testing-app', ['perfect_scrollbar'])
         return regionCount;
     };
 
+    var addPlayer = function(event, playerData) {
+        var steamid = playerData['steamid']
+        var name = playerData['name']
+        var region = playerData['region']
+
+        players[steamid] = {
+            'steamid': steamid,
+            'name': name,
+            'region': region
+        };
+
+        regionCount[region] += 1
+
+        console.log(Object.keys(players).length);
+    };
+
+    $rootScope.$on('addPlayer', addPlayer); 
+
     return {
         getPlayers: getPlayers,
-        getPlayerCountPerRegion: getPlayerCountPerRegion
+        getPlayerCountPerRegion: getPlayerCountPerRegion,
+        addPlayer: addPlayer,
+        players: players
     };
 }])
 .controller('rows-controller', function($scope, $http, $interval, PlayersOnline) {
-
-    $scope.rows = PlayersOnline.getPlayers();
+    $scope.rows = PlayersOnline.players;
     // $scope.updatePlayers = function() {
     //     $http.get('http://127.0.0.1:5001/players').
     //         success(function(data) {
@@ -86,3 +105,13 @@ angular.module('testing-app', ['perfect_scrollbar'])
 .controller('player-count', function($scope, PlayersOnline) {
     $scope.playerCounts = PlayersOnline.getPlayerCountPerRegion();
 });
+
+function broadcastAngularEvent(eventName, data) {
+    var scope = angular.element(document).scope(); 
+    scope.$broadcast(eventName, data);
+    scope.$apply();
+}
+
+function addPlayer(data) {
+    broadcastAngularEvent('addPlayer', data);
+}
